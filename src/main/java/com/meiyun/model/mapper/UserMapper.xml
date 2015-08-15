@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+
+	<resultMap type="User" id="UserMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="is_email_set" property="isEmailSet" jdbcType="TINYINT" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="is_mobile_set" property="isMobileSet" jdbcType="TINYINT" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="secret" property="secret" jdbcType="VARCHAR" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="comment" property="comment" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="cover" property="cover" jdbcType="VARCHAR" />
+		<result column="comment" property="comment" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="TINYINT" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<result column="last_modified" property="lastModified" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<!-- 添加用户 -->
+	<insert id="insert" parameterType="User">
+		INSERT INTO t_user
+		(name, email, is_email_set, mobile, is_mobile_set, password, secret, 
+		salt, title, `comment`, image, cover, color, state, `type`)
+		VALUES (#{name}, #{email}, #{isEmailSet}, #{mobile}, #{isMobileSet}, #{password}, #{secret},
+		 #{salt}, #{title}, #{comment}, #{image}, #{cover}, #{color}, #{state}, #{type})
+	</insert>
+	
+	<!-- 删除标签 -->
+	<delete id="delete" parameterType="User">
+		DELETE FROM t_user WHERE id = #{id}
+	</delete>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="User">
+		UPDATE t_user
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email},
+			</if>
+			<if test="isEmailSet != null">
+				is_email_set = #{isEmailSet},
+			</if>
+			<if test="mobile != null and mobile != ''">
+				mobile = #{mobile},
+			</if>
+			<if test="isMobileSet != null">
+				is_mobile_set = #{isMobileSet},
+			</if>
+			<if test="password != null and password != ''">
+				password = #{password},
+			</if>
+			<if test="secret != null and secret != ''">
+				secret = #{secret},
+			</if>
+			<if test="salt != null and salt != ''">
+				salt = #{salt},
+			</if>
+			<if test="title != null and title != ''">
+				title = #{title},
+			</if>
+			<if test="comment != null">
+				comment = #{comment},
+			</if>
+			<if test="image != null">
+				image = #{image},
+			</if>
+			<if test="cover != null">
+				cover = #{cover},
+			</if>
+			<if test="color != null">
+				color = #{color},
+			</if>
+			<if test="state != null">
+				state = #{state},
+			</if>
+			<if test="type != null">
+				type = #{type}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="user" resultMap="UserMap">
+		SELECT id, name, email, is_email_set, mobile, is_mobile_set, password, secret, 
+		salt, title, `comment`, image, cover, color, state, `type`, created, last_modified
+		FROM t_user
+		<where>
+			<if test="name != null and name != ''">
+				AND name = #{name}
+			</if>
+			<if test="email != null and email != ''">
+				AND email = #{email}
+			</if>
+			<if test="isEmailSet != null">
+				AND is_email_set = #{isEmailSet}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				AND mobile = #{mobile}
+			</if>
+			<if test="isMobileSet != null">
+				AND is_mobile_set = #{isMobileSet}
+			</if>
+			<if test="secret != null">
+				AND secret = #{secret}
+			</if>
+			<if test="title != null and title !=''">
+				AND title = #{title}
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			<if test="type != null">
+				AND type = #{type}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据ID查询标签 -->
+	<select id="queryById" parameterType="User" resultMap="UserMap">
+		SELECT id, name, email, is_email_set, mobile, is_mobile_set, password, secret, 
+		salt, title, `comment`, image, cover, color, state, `type`, created, last_modified
+		FROM t_user
+		WHERE id = #{id} LIMIT 1
+	</select>
+
+</mapper>

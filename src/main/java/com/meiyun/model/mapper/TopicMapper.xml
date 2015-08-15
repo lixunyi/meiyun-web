@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TopicMapper">
+
+	<resultMap type="Topic" id="TopicMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="labels" property="labels" jdbcType="VARCHAR" />
+		<result column="comment" property="comment" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="cover" property="cover" jdbcType="VARCHAR" />
+		<result column="color" property="color" jdbcType="VARCHAR" />
+		<result column="counter" property="counter" jdbcType="INTEGER" />
+		<result column="liked" property="liked" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="TINYINT" />
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<result column="last_modified" property="lastModified" jdbcType="TIMESTAMP" />
+		<association property="user" javaType="User" column="user_id" select="UserMapper.queryById"></association>
+	</resultMap>
+	
+	<!-- 添加主题 -->
+	<insert id="insert" parameterType="Topic">
+	INSERT INTO t_topic
+	(name, title, labels, `comment`, image, cover, color, counter, liked, state, user_id)
+	VALUES (#{name}, #{title}, #{labels}, #{comment}, #{image}, #{cover}, #{color}, #{counter}, #{liked}, #{state}, #{user.id})
+	</insert>
+	
+	<!-- 删除主题 -->
+	<delete id="delete" parameterType="Topic">
+		DELETE FROM t_topic WHERE id = #{id}
+	</delete>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="Topic">
+		UPDATE t_topic
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="title != null and title != ''">
+				title = #{title},
+			</if>
+			<if test="labels != null">
+				labels = #{labels},
+			</if>
+			<if test="comment != null">
+				comment = #{comment},
+			</if>
+			<if test="image != null">
+				image = #{image},
+			</if>
+			<if test="cover != null">
+				cover = #{cover},
+			</if>
+			<if test="color != null">
+				color = #{color},
+			</if>
+			<if test="counter != null">
+				counter = #{counter},
+			</if>
+			<if test="liked != null">
+				liked = #{liked},
+			</if>
+			<if test="state != null">
+				state = #{state},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="topic" resultMap="TopicMap">
+		SELECT id, name, title, labels, `comment`, image, cover, color, counter, liked, state, created, last_modified, user_id
+		FROM t_topic
+		<where>
+			<if test="name != null and name != ''">
+				AND name = #{name}
+			</if>
+			<if test="title != null and title !=''">
+				AND title = #{title}
+			</if>
+			<if test="labels != null and labels != ''">
+				AND labels LIKE CONCAT('%', #{labels}, '%')
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			<if test="user != null and user.id != null">
+				AND user_id = #{user.id}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据ID查询标签 -->
+	<select id="queryById" parameterType="Topic" resultMap="TopicMap">
+		SELECT id, name, title, labels, `comment`, image, cover, color, counter, liked, state, created, last_modified, user_id
+		FROM t_topic
+		WHERE id = #{id} LIMIT 1
+	</select>
+
+</mapper>

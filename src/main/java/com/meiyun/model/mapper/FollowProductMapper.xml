@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FollowProductMapper">
+
+	<!-- 关系映射 -->
+	<resultMap type="FollowProduct" id="FollowProductMap">
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<association property="user" javaType="User" column="user_id" select="UserMapper.queryById"></association>
+		<association property="product" javaType="Product" column="product_id" select="ProductMapper.queryById"></association>
+	</resultMap>
+	
+	<!-- 添加关注产品-->
+	<insert id="insert" parameterType="FollowProduct">
+		INSERT INTO t_follow_product (user_id, product_id)
+		VALUES (#{user.id}, #{product.id})
+	</insert>
+	
+	<!-- 删除关注产品 -->
+	<delete id="delete" parameterType="FollowProduct">
+		DELETE FROM t_follow_product WHERE user_id=#{user.id} AND product_id=#{product.id}
+	</delete>
+
+</mapper>

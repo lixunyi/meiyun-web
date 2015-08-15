@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FollowLabelMapper">
+
+	<!-- 关系映射 -->
+	<resultMap type="FollowLabel" id="FollowLabel_Map">
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<association property="label" javaType="Label" column="label_id" select="UserMapper.queryById"></association>
+		<association property="user" javaType="User" column="user_id" select="UserMapper.queryById"></association>
+	</resultMap>
+	
+	<!-- 添加关注标签 -->
+	<insert id="insert" parameterType="FollowLabel">
+		INSERT INTO t_follow_label (user_id, label_id)
+		VALUES (#{user.id}, #{label.id})
+	</insert>
+	
+	<!-- 删除关注标签 -->
+	<delete id="delete" parameterType="FollowLabel">
+		DELETE FROM t_follow_label WHERE user_id=#{user.id} AND label_id=#{label.id}
+	</delete>
+
+</mapper>

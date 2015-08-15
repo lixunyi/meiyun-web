@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FollowUserMapper">
+
+	<!-- 关系映射 -->
+	<resultMap type="FollowUser" id="FollowUserMap">
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<association property="user" javaType="User" column="user_id" select="UserMapper.queryById"></association>
+	</resultMap>
+	
+	<!-- 添加关注主题-->
+	<insert id="insert" parameterType="FollowUser">
+		INSERT INTO t_follow_user (user_id, follower_id)
+		VALUES (#{user.id}, #{follower.id})
+	</insert>
+	
+	<!-- 删除关注主题 -->
+	<delete id="delete" parameterType="FollowUser">
+		DELETE FROM t_follow_user WHERE user_id=#{user.id} AND follower_id=#{follower.id}
+	</delete>
+
+</mapper>

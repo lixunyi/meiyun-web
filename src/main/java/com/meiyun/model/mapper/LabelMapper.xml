@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LabelMapper">
+
+	<!-- 关系映射 -->
+	<resultMap type="Label" id="LabelMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="spell" property="spell" jdbcType="VARCHAR" />
+		<result column="abbr" property="abbr" jdbcType="VARCHAR" />
+		<result column="comment" property="comment" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="TINYINT" />
+		<result column="parent" property="parent" jdbcType="INTEGER" />
+		<result column="reorder" property="reorder" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<result column="last_modified" property="lastModified" jdbcType="TIMESTAMP" />
+		
+		<association property="user" javaType="User" column="user_id" select="UserMapper.queryById"></association>
+	</resultMap>
+	
+	<!-- 添加标签 -->
+	<insert id="insert" parameterType="Label">
+		INSERT INTO t_label
+		(name, title, spell, abbr, `comment`, state, parent,
+		reorder, `type`, user_id)
+		VALUES (#{name}, #{title}, #{spell}, #{abbr},
+		#{comment}, #{state}, #{parent}, #{reorder}, #{type}, #{user.id})
+	</insert>
+	
+	<!-- 删除标签 -->
+	<delete id="delete" parameterType="Label">
+		DELETE FROM t_label WHERE id = #{id}
+	</delete>
+
+	<!-- 批量删除 -->
+	<delete id="batchDelete">
+		DELETE FROM t_label WHERE id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")"> 
+			#{id}
+		</foreach> 
+	</delete>
+	
+	<!-- 修改标签 -->
+	<update id="update" parameterType="Label">
+		UPDATE t_label
+		<set>
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="title != null and title != ''">
+				title = #{title},
+			</if>
+			<if test="spell != null and spell != ''">
+				spell = #{spell},
+			</if>
+			<if test="abbr != null and abbr != ''">
+				abbr = #{abbr},
+			</if>
+			<if test="comment != null">
+				comment = #{comment},
+			</if>
+			<if test="state != null">
+				state = #{state},
+			</if>
+			<if test="parent != null">
+				parent = #{parent},
+			</if>
+			<if test="reorder != null">
+				reorder = ${reorder},
+			</if>
+			<if test="type != null">
+				type = #{type}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 查询 -->
+	<select id="query" parameterType="label" resultMap="LabelMap">
+		SELECT id, name, title, spell, abbr, `comment`, state, parent, reorder,
+		`type`, created, last_modified, user_id FROM t_label
+		<where>
+			<if test="name != null and name != ''">
+				AND name = #{name}
+			</if>
+			<if test="title != null and title !=''">
+				AND title LIKE CONCAT('%', title, '%')
+			</if>
+			<if test="spell != null and spell !=''">
+				AND spell LIKE CONCAT('%', spell, '%')
+			</if>
+			<if test="abbr != null and abbr != ''">
+				AND abbr = LIKE CONCAT('%', abbr, '%')
+			</if>
+			<if test="state != null">
+				AND state = #{state}
+			</if>
+			<if test="parent != null">
+				AND parent = #{parent}
+			</if>
+			<if test="type != null">
+				AND type = #{type}
+			</if>
+			<if test="user != null and user.id != null">
+				AND user_id = #{user.id}
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="queryById" parameterType="Label" resultMap="LabelMap">
+		SELECT id, name, title, spell, abbr, `comment`, state, parent, reorder,
+		`type`, created, last_modified, user_id FROM t_label
+		WHERE id = #{id} LIMIT 1
+	</select>
+
+</mapper>
