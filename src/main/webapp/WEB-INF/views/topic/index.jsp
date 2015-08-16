@@ -13,11 +13,12 @@
 <body>
 <%@ include file="../header.jsp" %>
 
-	<div class="toolbar">
+	<div class="pagehead">
 		<div class="container">
-			<ul class="list-inline">
-				<li class="pull-right"><a href="<%= Route.TOPIC_NEW %>" class="btn btn-info">创建主题</a></li>
-			</ul>
+			<div class="pagehead-body pagehead-title">
+			<span class="text-muted">主题</span>
+			</div>
+			<div class="pagehead-right"><a href="<%= Route.TOPIC_NEW %>" class="btn btn-info">创建主题</a></div>
 		</div>
 	</div>
 

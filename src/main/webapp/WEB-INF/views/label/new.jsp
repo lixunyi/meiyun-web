@@ -13,9 +13,11 @@
 <body>
 	<%@ include file="../header.jsp"%>
 	
-	<div class="toolbar">
+	<div class="pagehead">
 		<div class="container">
-			<h3>添加标签</h3>
+			<div class="pagehead-body pagehead-title">
+			<span class="text-muted">创建标签</span>
+			</div>
 		</div>
 	</div>
 

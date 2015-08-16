@@ -15,7 +15,6 @@
 			<p>Jack Smith&#39;s profile on Product Hunt</p>
 			</div>
 	      <div class="media-right">
-	        <a class="btn btn-primary btn-lg" href="<%= Route.USER_FOLLOWING %>" role="button">关注</a>
 	        <a class="btn btn-default btn-lg" href="<%= Route.USER_PROFILE %>" role="button">设置</a>
 	      </div>
 	    </div>
@@ -23,11 +22,11 @@
 </div>
 
 <div class="container">
-<ul class="nav nav-tabs text-center">
-  <li role="presentation" class="active"><a href="<%= Route.USER_DASHBORD %>">115 链接</a></li>
-  <li role="presentation"><a href="<%= Route.USER_TOPIC %>">5 主题</a></li>
-  <li role="presentation"><a href="<%= Route.USER_LABEL %>">43 标签</a></li>
-  <li role="presentation"><a href="<%= Route.USER_FOLLOWING %>">132 关注的人</a></li>
-  <li role="presentation"><a href="<%= Route.USER_FOLLOWER %>">546 粉丝</a></li>
-</ul>
+	<ul class="nav nav-tabs text-center">
+	  <li role="presentation" class="active"><a href="<%= Route.USER_DASHBORD %>">115 链接</a></li>
+	  <li role="presentation"><a href="<%= Route.USER_TOPIC %>">5 主题</a></li>
+	  <li role="presentation"><a href="<%= Route.USER_LABEL %>">43 标签</a></li>
+	  <li role="presentation"><a href="<%= Route.USER_FOLLOWING %>">132 关注的人</a></li>
+	  <li role="presentation"><a href="<%= Route.USER_FOLLOWER %>">546 粉丝</a></li>
+	</ul>
 </div>

@@ -10,10 +10,12 @@
 <%@ include file="../snippets/style.jsp" %>
 <body>
 	<%@ include file="../header.jsp"%>
-
-	<div class="toolbar">
+	
+	<div class="pagehead">
 		<div class="container">
-			<h3>创建主题</h3>
+			<div class="pagehead-body pagehead-title">
+			<span class="text-muted">创建主题</span>
+			</div>
 		</div>
 	</div>
 

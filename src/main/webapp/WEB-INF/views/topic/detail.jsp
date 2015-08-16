@@ -13,9 +13,12 @@
 <body>
 <%@ include file="../header.jsp" %>
 
-	<div class="toolbar">
+	<div class="pagehead">
 		<div class="container">
-			<h4>${topic.title}</h4>
+			<div class="pagehead-body pagehead-title">
+			<span class="text-muted">${topic.title}</span>
+			</div>
+			<div class="pagehead-right"><a href="<%= Route.PRODUCT_NEW %>" class="btn btn-info">分享链接</a></div>
 		</div>
 	</div>
 

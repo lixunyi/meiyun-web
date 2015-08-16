@@ -12,9 +12,11 @@
 <body>
 	<%@ include file="../header.jsp"%>
 	
-	<div class="toolbar">
+	<div class="pagehead">
 		<div class="container">
-			<h3>分享产品</h3>
+			<div class="pagehead-body pagehead-title">
+			<span class="text-muted">创建链接</span>
+			</div>
 		</div>
 	</div>
 

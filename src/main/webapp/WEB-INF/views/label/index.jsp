@@ -13,11 +13,12 @@
 <body>
 <%@ include file="../header.jsp" %>
 
-	<div class="toolbar">
+	<div class="pagehead">
 		<div class="container">
-			<ul class="list-inline">
-				<li class="pull-right"><a href="<%= Route.LABEL_NEW %>" class="btn btn-info">添加标签</a></li>
-			</ul>
+			<div class="pagehead-body pagehead-title">
+			<span class="text-muted">标签云</span>
+			</div>
+			<div class="pagehead-right"><a href="<%= Route.LABEL_NEW %>" class="btn btn-info">添加标签</a></div>
 		</div>
 	</div>
 

@@ -14,16 +14,12 @@
 <body>
 <%@ include file="../header.jsp" %>
 
-	<%
-		pageContext.setAttribute("web", "MeiYun");
-	%>
-
-	<div class="toolbar">
+	<div class="pagehead">
 		<div class="container">
-			<ul class="list-inline">
-				<li>${my:hello(web)}</li>
-				<li class="pull-right"><a href="<%= Route.PRODUCT_NEW %>" class="btn btn-info">分享产品</a></li>
-			</ul>
+			<div class="pagehead-body pagehead-title">
+			<span class="text-muted">分享你喜欢的站点</span>
+			</div>
+			<div class="pagehead-right"><a href="<%= Route.PRODUCT_NEW %>" class="btn btn-info">分享产品</a></div>
 		</div>
 	</div>
 
@@ -38,6 +34,6 @@
 		  </c:if>
 		</div>
 	</div>
-<%@ include file="../snippets/scripts.jsp" %>	
+<%@ include file="../snippets/scripts.jsp" %>
 </body>
 </html>
