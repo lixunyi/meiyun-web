@@ -7,13 +7,17 @@ $(function() {
 	
 	// 登录
 	el.submit.click(function() {
-		console.log(el.form.serialize());
+		var $btn = $(this).button('loading')
 		$.post("/user/login", el.form.serialize(), function(data) {
 			var result = $.parseJSON(data);
-			el.alert.text(result.message);
+			
 			if (result.success) {
+				el.submit.text("登录成功！");
 				window.location.href = "/";
-			} 
-		})
+			} else { // 登录失败
+				el.alert.find("strong").text(result.message);
+				$btn.button('reset');
+			}
+		});
 	});
 });
