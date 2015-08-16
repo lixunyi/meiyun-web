@@ -1,0 +1,61 @@
+//== 自定义页面导航
+
+.pagehead {
+  position: relative;
+  padding-top: @my-padding;
+  padding-bottom: @my-padding;
+  margin-bottom: @my-margin;
+  border-bottom: 1px solid @gray-lighter;
+}
+
+.clear-margin {
+  margin: 0;
+}
+
+.clear-padding {
+  padding: 0;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.pagehead,
+.pagehead-body {
+  zoom: 1;
+  overflow: hidden;
+}
+
+.pagehead-body {
+  width: 10000px;
+}
+
+.pagehead-title {
+  font-size: 18px;
+}
+
+.pagehead-object {
+  display: block;
+
+  // Fix collapse in webkit from max-width: 100% and display: table-cell.
+  &.img-thumbnail {
+    max-width: none;
+  }
+}
+
+.pagehead-right,
+.pagehead > .pull-right {
+  padding-left: 10px;
+}
+
+.pagehead-left,
+.pagehead > .pull-left {
+  padding-right: 10px;
+}
+
+.pagehead-left,
+.pagehead-right,
+.pagehead-body {
+  display: table-cell;
+  vertical-align: middle;
+}
