@@ -115,7 +115,7 @@ public class LabelController extends BaseController<Label, Integer, LabelService
 		Context context = new Context();
 		
 		try {
-			PageInfo<Label> page = getBaseService().query(null, new Pagable(1, 5));
+			PageInfo<Label> page = getBaseService().query(null, new Pagable(1, 50));
 			context.setResult(page.getList());
 		} catch (Exception e) {
 			e.printStackTrace();

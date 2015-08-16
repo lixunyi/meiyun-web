@@ -71,15 +71,6 @@ public class UserController extends BaseController<User, Integer, UserService> {
 		try {
 			User loginUser = this.getUserByName(username);
 			RestError error = new UserLogic().userLogin(loginUser, password, request);
-			/*if (DigestUtils.md5Hex(password.trim()).equals(loginUser.getPassword())) {
-				
-				// 登录成功
-				SessionUtils.getInstance(request).set(Constants.LOGIN_USER, loginUser);
-			} else {
-				// 登录失败
-				context.setSuccess(false);
-				context.setMessage("用户名或密码错误");
-			}*/
 			if (error != null) {
 				context.setSuccess(false);
 				context.setMessage(error.getMessage());
@@ -163,7 +154,7 @@ public class UserController extends BaseController<User, Integer, UserService> {
 		product.setUser(new LoginUser(request).getUser());
 		
 		try {
-			context.setResult(productService.query(product, new Pagable(1, 5)));
+			context.setResult(productService.query(product, new Pagable(1, 50)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -248,7 +239,7 @@ public class UserController extends BaseController<User, Integer, UserService> {
 		topic.setUser(new LoginUser(request).getUser());
 		
 		try {
-			context.setResult(topicService.query(topic, new Pagable(1, 5)));
+			context.setResult(topicService.query(topic, new Pagable(1, 50)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

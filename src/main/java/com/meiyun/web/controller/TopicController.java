@@ -84,7 +84,7 @@ public class TopicController extends BaseController<Topic, Integer, TopicService
 		Context context = new Context();
 		
 		try {
-			PageInfo<Topic> page = getBaseService().query(null, new Pagable(1, 5));
+			PageInfo<Topic> page = getBaseService().query(null, new Pagable(1, 50));
 			context.setResult(page.getList());
 		} catch (Exception e) {
 			e.printStackTrace();

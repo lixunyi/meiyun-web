@@ -51,7 +51,7 @@ public class ProductController extends BaseController<Product, Integer, ProductS
 		topic.setUser(new LoginUser(request).getUser());
 		
 		try {
-			PageInfo<Topic> page = topicService.query(null, new Pagable(1, 5));
+			PageInfo<Topic> page = topicService.query(null, new Pagable(1, 50));
 			context.setResult(page.getList());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -136,7 +136,7 @@ public class ProductController extends BaseController<Product, Integer, ProductS
 		context.setMessage("产品首页");
 		try {
 			
-			Pagable pagable = new Pagable(1, 10);
+			Pagable pagable = new Pagable(1, 50);
 			pagable.setOrderBy("id DESC");
 			
 			context.setResult(getBaseService().query(null, pagable).getList());
