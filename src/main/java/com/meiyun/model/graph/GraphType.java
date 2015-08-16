@@ -31,6 +31,6 @@ public enum GraphType {
 	
 	FOOD, // 美食
 	
-	EDU, // 在线教育
+	EDU // 在线教育
 
 }

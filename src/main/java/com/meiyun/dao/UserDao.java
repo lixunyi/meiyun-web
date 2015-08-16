@@ -10,5 +10,13 @@ import com.meiyun.model.User;
  *
  */
 public interface UserDao extends BaseDao<User, Integer> {
+	
+	/**
+	 * 用户登录查询
+	 * @param user：name, email, mobile
+	 * @return
+	 * @throws Exception
+	 */
+	User queryLogin(User user) throws Exception;
 
 }

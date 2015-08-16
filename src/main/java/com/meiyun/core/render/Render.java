@@ -1,9 +1,9 @@
-package com.meiyun.web.render;
+package com.meiyun.core.render;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.meiyun.core.Const;
+import com.meiyun.core.Constants;
 
 public abstract class Render {
 	
@@ -11,20 +11,14 @@ public abstract class Render {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	
-	private static String encoding = Const.CHARSET;
-	private static boolean devMode = Const.DEV_MODE;
+	private static String encoding = Constants.CHARSET;
 	
-	static void init(String encoding, boolean devMode) {
+	static void init(String encoding) {
 		Render.encoding = encoding;
-		Render.devMode = devMode;
 	}
 	
 	public static String getEncoding() {
 		return encoding;
-	}
-	
-	public static boolean getDevMode() {
-		return devMode;
 	}
 	
 	public Render setContext(HttpServletRequest request, HttpServletResponse response) {

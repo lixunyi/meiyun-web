@@ -12,9 +12,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.meiyun.core.ConstantEnum;
+import com.meiyun.core.Constants;
 import com.meiyun.core.Route;
-import com.meiyun.web.annotation.Logined;
+import com.meiyun.core.annotation.Logined;
 
 /**
  * 用户登录拦截器
@@ -38,7 +38,6 @@ public class LoginedInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response,
 			Object object, ModelAndView modelAndView) throws Exception {
-
 	}
 
 	// 请求到达控制器之前 
@@ -48,12 +47,11 @@ public class LoginedInterceptor implements HandlerInterceptor {
 			Object object) throws Exception {
 		
 		// 设置字符编码
-		response.setCharacterEncoding(ConstantEnum.CHARSET.getValue());
+		response.setCharacterEncoding(Constants.CHARSET);
 		String webPath = request.getContextPath();
 		logger.debug("webPath: " + webPath);
 		String uri = request.getRequestURI();
 		logger.debug("URI: " + uri);
-		System.out.println(isAjaxRequest(request));  // 是否为Ajax请求
 		
 		if (object instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) object;
@@ -61,7 +59,7 @@ public class LoginedInterceptor implements HandlerInterceptor {
 			
 			if (method.isAnnotationPresent(Logined.class)) {
 				HttpSession session = request.getSession();
-				Object loginUser = session.getAttribute(ConstantEnum.LOGIN_USER.getValue());
+				Object loginUser = session.getAttribute(Constants.LOGIN_USER);
 				if (loginUser == null) { // 未登录
 					response.sendRedirect(Route.USER_LOGIN + "?redirectUrl=" + uri);
 					return false;
@@ -73,13 +71,13 @@ public class LoginedInterceptor implements HandlerInterceptor {
 	}
 	
 	/**
-	 * 判断是否为Ajax请求
+	 * 判断是否为Ajax请求：已测试通过
 	 * @param request
 	 * @return
 	 */
-	private boolean isAjaxRequest(HttpServletRequest request) {
+	/*private boolean isAjaxRequest(HttpServletRequest request) {
 		String requestType = request.getHeader("X-Requested-With");
 		return "XMLHttpRequest".equalsIgnoreCase(requestType);
-	}
+	}*/
 
 }

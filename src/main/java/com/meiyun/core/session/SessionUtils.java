@@ -1,4 +1,4 @@
-package com.meiyun.core;
+package com.meiyun.core.session;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

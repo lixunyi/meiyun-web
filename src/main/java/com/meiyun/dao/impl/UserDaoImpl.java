@@ -14,4 +14,10 @@ public class UserDaoImpl extends BaseDaoImpl<User, Integer> implements UserDao {
 		return "UserMapper";
 	}
 
+	@Override
+	public User queryLogin(User user) throws Exception {
+		return sqlSessionTemplate.selectOne(getMapper().concat(".queryLogin"),
+				user);
+	}
+
 }

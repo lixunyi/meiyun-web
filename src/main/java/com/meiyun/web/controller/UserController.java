@@ -13,20 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.PageInfo;
-import com.meiyun.core.ConstantEnum;
+import com.meiyun.core.Constants;
 import com.meiyun.core.Route;
-import com.meiyun.core.SessionUtils;
+import com.meiyun.core.render.Context;
+import com.meiyun.core.render.RestError;
+import com.meiyun.core.session.LoginUser;
+import com.meiyun.core.session.SessionUtils;
 import com.meiyun.dao.core.Pagable;
 import com.meiyun.model.Product;
 import com.meiyun.model.Topic;
 import com.meiyun.model.User;
-import com.meiyun.model.core.Context;
 import com.meiyun.service.ProductService;
 import com.meiyun.service.TopicService;
 import com.meiyun.service.UserService;
+import com.meiyun.service.logic.UserLogic;
 import com.meiyun.web.component.WebContent;
-import com.meiyun.web.config.LoginUser;
 import com.meiyun.web.core.BaseController;
 
 @Controller
@@ -69,14 +70,22 @@ public class UserController extends BaseController<User, Integer, UserService> {
 		context.setMessage("登录成功");
 		try {
 			User loginUser = this.getUserByName(username);
-			if (DigestUtils.md5Hex(password.trim()).equals(loginUser.getPassword())) {
+			RestError error = new UserLogic().userLogin(loginUser, password, request);
+			/*if (DigestUtils.md5Hex(password.trim()).equals(loginUser.getPassword())) {
 				
 				// 登录成功
-				SessionUtils.getInstance(request).set(ConstantEnum.LOGIN_USER.getValue(), loginUser);
+				SessionUtils.getInstance(request).set(Constants.LOGIN_USER, loginUser);
 			} else {
 				// 登录失败
 				context.setSuccess(false);
 				context.setMessage("用户名或密码错误");
+			}*/
+			if (error != null) {
+				context.setSuccess(false);
+				context.setMessage(error.getMessage());
+			} else {
+				context.setSuccess(true);
+				context.setMessage("登录成功");
 			}
 		} catch (Exception e) {
 			// 登录失败
@@ -132,7 +141,7 @@ public class UserController extends BaseController<User, Integer, UserService> {
 				context.setMessage("注册失败");
 			} else { // 注册成功后默认为登录状态
 				User loginUser = this.getUserByName(username);
-				SessionUtils.getInstance(request).set(ConstantEnum.LOGIN_USER.getValue(), loginUser);
+				SessionUtils.getInstance(request).set(Constants.LOGIN_USER, loginUser);
 			}
 		} catch (Exception e) {
 			context.setSuccess(false);
@@ -166,7 +175,7 @@ public class UserController extends BaseController<User, Integer, UserService> {
 
 	@RequestMapping(value=Route.USER_LOGOUT)
 	public String logout(HttpServletRequest request) {
-		request.getSession().removeAttribute(ConstantEnum.LOGIN_USER.getValue());
+		request.getSession().removeAttribute(Constants.LOGIN_USER);
 		
 		return WebContent.redirect("/");
 	}
@@ -250,13 +259,6 @@ public class UserController extends BaseController<User, Integer, UserService> {
 	}
 	
 	private User getUserByName(String name) throws Exception {
-		
-		Pagable pagable = new Pagable(1, 5);
-		PageInfo<User> page = getBaseService().query(new User(name), pagable);
-		if (!page.getList().isEmpty()) {
-			return page.getList().get(0);
-		}
-		
-		return null;
+		return getBaseService().queryLogin(new User(name));
 	}
 }

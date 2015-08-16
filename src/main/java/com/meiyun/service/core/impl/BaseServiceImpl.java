@@ -8,6 +8,14 @@ import com.meiyun.dao.core.Pagable;
 import com.meiyun.model.core.BaseEntity;
 import com.meiyun.service.core.BaseService;
 
+/**
+ * 基础服务实现
+ * @author Administrator
+ *
+ * @param <T>
+ * @param <PK>
+ * @param <D>
+ */
 public abstract class BaseServiceImpl<T extends BaseEntity, PK extends Serializable, D extends BaseDao<T, PK>>
 		implements BaseService<T, PK> {
 

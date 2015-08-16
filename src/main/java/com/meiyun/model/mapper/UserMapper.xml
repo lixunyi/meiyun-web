@@ -133,5 +133,24 @@
 		FROM t_user
 		WHERE id = #{id} LIMIT 1
 	</select>
+	
+	<!-- 用户登录查询 -->
+	<select id="queryLogin" parameterType="User" resultMap="UserMap">
+		SELECT id, name, email, is_email_set, mobile, is_mobile_set, password, secret, 
+		salt, title, `comment`, image, cover, color, state, `type`, created, last_modified
+		FROM t_user
+		<where>
+			<if test="name != null and name !=''">
+				AND name = #{name}
+			</if>
+			<if test="email != null and email !=''">
+				AND email = #{email}
+			</if>
+			<if test="mobile != null and mobile !=''">
+				AND email = #{email}
+			</if>
+		</where>
+		LIMIT 1
+	</select>
 
 </mapper>

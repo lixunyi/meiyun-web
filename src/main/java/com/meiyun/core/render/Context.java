@@ -1,4 +1,4 @@
-package com.meiyun.model.core;
+package com.meiyun.core.render;
 
 import java.io.Serializable;
 import java.util.Map;

@@ -1,6 +1,9 @@
 package com.meiyun.commons.validate;
 
+import java.util.List;
 import java.util.regex.Pattern;
+
+import net.sf.oval.ConstraintViolation;
 
 public class Validator {
 	
@@ -59,6 +62,31 @@ public class Validator {
 	    
 	    return flag;
 	}
+	
+	/**
+	 * 验证对象
+	 * 
+	 * @param validatorObject
+	 * @return
+	 */
+	public boolean validate(Object validatorObject) {
+		net.sf.oval.Validator validator = new net.sf.oval.Validator();
+		List<ConstraintViolation> list = validator.validate(validatorObject);
+		return list.size() == 0;
+	}
 
+	/**
+	 * 验证对象，并指定验证的字段
+	 * 
+	 * @param validatorObject
+	 * @param profiles
+	 * @return
+	 */
+	public boolean validate(Object validatorObject, String... profiles) {
+		net.sf.oval.Validator validator = new net.sf.oval.Validator();
+		List<ConstraintViolation> list = validator.validate(validatorObject, profiles);
 
+		return list.size() == 0;
+	}
+	
 }

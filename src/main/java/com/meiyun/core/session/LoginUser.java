@@ -1,9 +1,9 @@
-package com.meiyun.web.config;
+package com.meiyun.core.session;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.meiyun.core.ConstantEnum;
+import com.meiyun.core.Constants;
 import com.meiyun.model.User;
 
 /**
@@ -21,7 +21,7 @@ public class LoginUser {
 
 	public LoginUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		Object loginUser = session.getAttribute(ConstantEnum.LOGIN_USER.getValue());
+		Object loginUser = session.getAttribute(Constants.LOGIN_USER);
 		user = (loginUser instanceof User) ? (User) loginUser : new User();
 	}
 

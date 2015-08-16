@@ -1,4 +1,4 @@
-package com.meiyun.commons.util;
+package com.meiyun.core.session;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

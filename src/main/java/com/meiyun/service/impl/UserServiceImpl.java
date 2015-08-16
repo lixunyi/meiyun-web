@@ -19,4 +19,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer, UserDao>
 		super.baseDao = baseDao;
 	}
 
+	@Override
+	public User queryLogin(User user) throws Exception {
+		return baseDao.queryLogin(user);
+	}
+
 }

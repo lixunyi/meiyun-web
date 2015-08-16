@@ -1,4 +1,4 @@
-package com.meiyun.web.render;
+package com.meiyun.core.render;
 
 /**
  * 服务器常见的五种响应类型
