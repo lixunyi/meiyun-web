@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.meiyun.core.Constants;
 import com.meiyun.core.Route;
 import com.meiyun.core.annotation.Logined;
+import com.meiyun.model.User;
+import com.meiyun.web.core.WebController;
 
 /**
  * 用户登录拦截器
@@ -58,8 +59,7 @@ public class LoginedInterceptor implements HandlerInterceptor {
 			Method method = handlerMethod.getMethod();
 			
 			if (method.isAnnotationPresent(Logined.class)) {
-				HttpSession session = request.getSession();
-				Object loginUser = session.getAttribute(Constants.LOGIN_USER);
+				User loginUser = new WebController().getLoginUser(request);
 				if (loginUser == null) { // 未登录
 					response.sendRedirect(Route.USER_LOGIN + "?redirectUrl=" + uri);
 					return false;

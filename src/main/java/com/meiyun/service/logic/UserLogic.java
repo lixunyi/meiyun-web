@@ -5,13 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.meiyun.core.Constants;
 import com.meiyun.core.render.ErrorCodeList;
 import com.meiyun.core.render.RestError;
-import com.meiyun.core.session.SessionUtils;
 import com.meiyun.model.User;
+import com.meiyun.web.core.WebController;
 
-public class UserLogic {
+public class UserLogic extends WebController {
 	
 	/**
 	 * 用户登录
@@ -29,9 +28,9 @@ public class UserLogic {
 		if (!DigestUtils.md5Hex(password.trim()).equalsIgnoreCase((loginUser.getPassword()))) {
 			return new RestError(ErrorCodeList.ERROR_109);
 		}
-		
 		// 登录成功
-		SessionUtils.getInstance(request).set(Constants.LOGIN_USER, loginUser);
+		super.setLoginUser(loginUser, request);
+		
 		return null;
 	}
 

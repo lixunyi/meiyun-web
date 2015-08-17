@@ -60,7 +60,7 @@ public interface Constants {
 	/**
 	 * 登录用户
 	 */
-	String LOGIN_USER = "loginUser";
+	/*String LOGIN_USER = "loginUser";*/
 	
 	/**
 	 * 管理员用户

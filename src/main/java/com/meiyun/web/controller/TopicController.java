@@ -17,7 +17,6 @@ import com.github.pagehelper.PageInfo;
 import com.meiyun.core.Route;
 import com.meiyun.core.annotation.Logined;
 import com.meiyun.core.render.Context;
-import com.meiyun.core.session.LoginUser;
 import com.meiyun.dao.core.Pagable;
 import com.meiyun.model.Product;
 import com.meiyun.model.Topic;
@@ -62,7 +61,7 @@ public class TopicController extends BaseController<Topic, Integer, TopicService
 			topic.setLiked(0);
 			topic.setName(UUID.randomUUID().toString());
 			topic.setState(1);
-			topic.setUser(new LoginUser(request).getUser());
+			topic.setUser(super.getLoginUser(request));
 			
 			boolean flag = getBaseService().add(topic);
 			if (!flag) {

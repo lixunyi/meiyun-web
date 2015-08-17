@@ -19,7 +19,6 @@ import com.meiyun.commons.util.FetchUtil;
 import com.meiyun.core.Route;
 import com.meiyun.core.annotation.Logined;
 import com.meiyun.core.render.Context;
-import com.meiyun.core.session.LoginUser;
 import com.meiyun.dao.core.Pagable;
 import com.meiyun.model.Product;
 import com.meiyun.model.Topic;
@@ -48,7 +47,7 @@ public class ProductController extends BaseController<Product, Integer, ProductS
 		Context context = new Context();
 		
 		Topic topic = new Topic();
-		topic.setUser(new LoginUser(request).getUser());
+		topic.setUser(super.getLoginUser(request));
 		
 		try {
 			PageInfo<Topic> page = topicService.query(null, new Pagable(1, 50));
@@ -79,7 +78,7 @@ public class ProductController extends BaseController<Product, Integer, ProductS
 			// 默认参数设置
 			t.setName(UUID.randomUUID().toString());
 			t.setTopic(new Topic(topicId)); 
-			t.setUser(new LoginUser(request).getUser());
+			t.setUser(super.getLoginUser(request));
 			t.setState(1);
 			t.setLiked(0);
 			

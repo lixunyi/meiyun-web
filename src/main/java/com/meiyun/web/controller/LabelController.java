@@ -18,7 +18,6 @@ import com.meiyun.commons.util.PinyinUtils;
 import com.meiyun.core.Route;
 import com.meiyun.core.annotation.Logined;
 import com.meiyun.core.render.Context;
-import com.meiyun.core.session.LoginUser;
 import com.meiyun.dao.core.Pagable;
 import com.meiyun.model.Label;
 import com.meiyun.model.User;
@@ -51,7 +50,7 @@ public class LabelController extends BaseController<Label, Integer, LabelService
 		
 		System.out.println("进入");
 		
-		User loginUser = new LoginUser(request).getUser();
+		User loginUser = super.getLoginUser(request);
 		
 		Label label = new Label();
 		// 添加标签信息

@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.meiyun.core.Constants;
 import com.meiyun.core.Route;
+import com.meiyun.core.SessionConstants;
 import com.meiyun.core.render.Context;
 import com.meiyun.core.render.RestError;
-import com.meiyun.core.session.LoginUser;
-import com.meiyun.core.session.SessionUtils;
 import com.meiyun.dao.core.Pagable;
 import com.meiyun.model.Product;
 import com.meiyun.model.Topic;
@@ -132,7 +130,7 @@ public class UserController extends BaseController<User, Integer, UserService> {
 				context.setMessage("注册失败");
 			} else { // 注册成功后默认为登录状态
 				User loginUser = this.getUserByName(username);
-				SessionUtils.getInstance(request).set(Constants.LOGIN_USER, loginUser);
+				super.setLoginUser(loginUser, request);
 			}
 		} catch (Exception e) {
 			context.setSuccess(false);
@@ -151,7 +149,7 @@ public class UserController extends BaseController<User, Integer, UserService> {
 	public String dashbord(Model model, HttpServletRequest request) {
 		Context context = new Context();
 		Product product = new Product();
-		product.setUser(new LoginUser(request).getUser());
+		product.setUser(super.getLoginUser(request));
 		
 		try {
 			context.setResult(productService.query(product, new Pagable(1, 50)));
@@ -166,7 +164,7 @@ public class UserController extends BaseController<User, Integer, UserService> {
 
 	@RequestMapping(value=Route.USER_LOGOUT)
 	public String logout(HttpServletRequest request) {
-		request.getSession().removeAttribute(Constants.LOGIN_USER);
+		super.removeSession(SessionConstants.LoginUser, request);
 		
 		return WebContent.redirect("/");
 	}
@@ -222,7 +220,6 @@ public class UserController extends BaseController<User, Integer, UserService> {
 	 */
 	@RequestMapping(value = Route.USER_PROFILE)
 	public String profile(HttpServletRequest request) {
-		
 		return WebContent.forword("user.profile");
 	}
 	
@@ -236,7 +233,7 @@ public class UserController extends BaseController<User, Integer, UserService> {
 		
 		Context context = new Context();
 		Topic topic = new Topic();
-		topic.setUser(new LoginUser(request).getUser());
+		topic.setUser(super.getLoginUser(request));
 		
 		try {
 			context.setResult(topicService.query(topic, new Pagable(1, 50)));
