@@ -1,10 +1,21 @@
 package com.meiyun.web.core;
 
+import java.util.List;
+import java.util.UUID;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
+
+import com.meiyun.core.ColorUtil;
 import com.meiyun.core.SessionConstants;
 import com.meiyun.model.User;
 
@@ -204,6 +215,103 @@ public class WebController {
 		}
 		
 		return cookie;
+	}
+	
+	/**
+	 * @method 将汉字转换为拼音
+	 * @param str 汉字
+	 * @return 汉语拼音
+	 */
+	public String getPingYin(String str) {
+		char[] t1 = null;
+		t1 = str.toCharArray();
+		String[] t2 = new String[t1.length];
+		HanyuPinyinOutputFormat t3 = new HanyuPinyinOutputFormat();
+		t3.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+		t3.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+		t3.setVCharType(HanyuPinyinVCharType.WITH_V);
+		String t4 = "";
+		int t0 = t1.length;
+		try {
+			for (int i = 0; i < t0; i++) {
+				// 判断是否为汉字字符
+				if (java.lang.Character.toString(t1[i]).matches(
+						"[\\u4E00-\\u9FA5]+")) {
+					t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);
+					t4 += t2[0];
+				} else
+					t4 += java.lang.Character.toString(t1[i]);
+			}
+			return t4;
+		} catch (BadHanyuPinyinOutputFormatCombination e1) {
+			e1.printStackTrace();
+		}
+		return t4;
+	}
+
+	/**
+	 * @method 返回中文的首字母
+	 * @param str
+	 * @return
+	 */
+	public String getPinYinHeadChar(String str) {
+		String convert = "";
+		for (int j = 0; j < str.length(); j++) {
+			char word = str.charAt(j);
+			String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(word);
+			if (pinyinArray != null) {
+				convert += pinyinArray[0].charAt(0);
+			} else {
+				convert += word;
+			}
+		}
+		return convert;
+	}
+	
+	/**
+	 * 获取IP地址
+	 * @param request
+	 * @return
+	 */
+	public String getIpAddr(HttpServletRequest request) {
+		String ip = request.getHeader("x-forwarded-for");
+
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
+	
+	/**
+	 * 获取系统定义的一个随机颜色值
+	 * @return
+	 */
+	public String getRandomColor() {
+		return ColorUtil.getRandomColor();
+	}
+	
+	/**
+	 * 获取系统定义的所有颜色值
+	 * @return
+	 */
+	public List<String> getAllColors() {
+		return ColorUtil.getAllColors();
+	}
+	
+	/**
+	 * 获取随机UUID
+	 * @return
+	 */
+	public String getRandomUUID() {
+		return UUID.randomUUID().toString();
 	}
 	
 }

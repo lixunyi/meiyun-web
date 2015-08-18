@@ -3,7 +3,7 @@ package com.meiyun.service.logic;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.meiyun.core.render.ErrorCodeList;
 import com.meiyun.core.render.RestError;

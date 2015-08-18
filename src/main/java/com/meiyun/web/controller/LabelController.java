@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
-import com.meiyun.commons.util.PinyinUtils;
 import com.meiyun.core.Route;
 import com.meiyun.core.annotation.Logined;
 import com.meiyun.core.render.Context;
@@ -58,9 +57,9 @@ public class LabelController extends BaseController<Label, Integer, LabelService
 		label.setComment(comment);
 		
 		// 系统自动处理数据
-		label.setAbbr(PinyinUtils.getPinYinHeadChar(label.getTitle()));
+		label.setAbbr(super.getPinYinHeadChar(label.getTitle()));
 		label.setName(UUID.randomUUID().toString());
-		label.setSpell(PinyinUtils.getPingYin(label.getTitle()));
+		label.setSpell(super.getPingYin(label.getTitle()));
 		label.setState(1);
 		label.setUser(loginUser);
 		
@@ -121,9 +120,7 @@ public class LabelController extends BaseController<Label, Integer, LabelService
 		}
 		
 		System.out.println(JSON.toJSONString(context, true));
-		
 		model.addAttribute("c", context);
-		
 		return WebContent.forword("label.index");
 	}
 	

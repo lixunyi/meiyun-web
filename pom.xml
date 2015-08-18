@@ -24,27 +24,6 @@
 		</repository>
 	</repositories>
 
-	<!-- @Properties Settings -->
-	<properties>
-		<junit.version>4.11</junit.version>
-		<asm.version>4.0</asm.version>
-		<cglib.version>3.0</cglib.version>
-		<aspectj.version>1.8.1</aspectj.version>
-		<aopalliance.version>1.0</aopalliance.version>
-		<spring.version>4.1.7.RELEASE</spring.version>
-		<yaml.version>1.13</yaml.version>
-		<ehcache-jcache.version>1.2</ehcache-jcache.version>
-		<javax.cache.version>1.0.0</javax.cache.version>
-		<cache-ri-impl.version>1.0.0</cache-ri-impl.version>
-		<commons-codec.version>1.9</commons-codec.version>
-		<hibernate.validator.version>5.0.2.Final</hibernate.validator.version>
-		<mybatis.spring.version>1.2.0</mybatis.spring.version>
-		<slf4j.version>1.7.12</slf4j.version>
-		<org.mybatis-version>3.2.5</org.mybatis-version>
-		<mysql-connector-java-version>5.1.26</mysql-connector-java-version>
-		<druid.version>1.0.9</druid.version>
-	</properties>
-
 	<dependencies>
 		<!-- @测试 -->
 		<dependency>
@@ -159,13 +138,6 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<!-- @Apache Commons -->
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>${commons-codec.version}</version>
-		</dependency>
-
 		<!-- @Oval [验证框架] -->
 		<dependency>
 			<groupId>net.sf.oval</groupId>
@@ -246,9 +218,8 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.1.39</version>
 		</dependency>
-	
 
-	<dependency>
+		<dependency>
 		    <groupId>com.github.pagehelper</groupId>
 		    <artifactId>pagehelper</artifactId>
 		    <version>4.0.0</version>
@@ -282,24 +253,16 @@
 		
 		<!-- @Apache Commons -->
 		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.directory.studio</groupId>
-			<artifactId>org.apache.commons.lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
 			<version>1.3.3</version>
+		</dependency>
+		
+		<!-- @FastUpload -->
+		<dependency>
+			<groupId>net.sf.fastupload</groupId>
+			<artifactId>fastupload-core</artifactId>
+			<version>0.6.3</version>
 		</dependency>
 		
 		<dependency>
@@ -308,6 +271,25 @@
             <version>13.0.1</version>
         </dependency>
 	</dependencies>
+	
+	<!-- @Properties Settings -->
+	<properties>
+		<junit.version>4.11</junit.version>
+		<asm.version>4.0</asm.version>
+		<cglib.version>3.0</cglib.version>
+		<aspectj.version>1.8.1</aspectj.version>
+		<aopalliance.version>1.0</aopalliance.version>
+		<spring.version>4.1.7.RELEASE</spring.version>
+		<yaml.version>1.13</yaml.version>
+		<ehcache-jcache.version>1.2</ehcache-jcache.version>
+		<javax.cache.version>1.0.0</javax.cache.version>
+		<cache-ri-impl.version>1.0.0</cache-ri-impl.version>
+		<mybatis.spring.version>1.2.0</mybatis.spring.version>
+		<slf4j.version>1.7.12</slf4j.version>
+		<org.mybatis-version>3.2.5</org.mybatis-version>
+		<mysql-connector-java-version>5.1.26</mysql-connector-java-version>
+		<druid.version>1.0.9</druid.version>
+	</properties>
 
 	<build>
 		<resources>

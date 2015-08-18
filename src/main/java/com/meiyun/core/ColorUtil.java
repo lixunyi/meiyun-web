@@ -1,4 +1,4 @@
-package com.meiyun.commons.util;
+package com.meiyun.core;
 
 import java.util.Arrays;
 import java.util.List;
